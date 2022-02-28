@@ -67,6 +67,7 @@ button {
     font-weight: 600;
     background: rgb(174, 174, 175);
     border:none;
+    cursor: pointer;
 
 }
 

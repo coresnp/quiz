@@ -33,12 +33,14 @@ let optionD = document.querySelector('.optionD');
 let clickedOption = false;
 let correctAnswer = 0;
 let score = document.querySelector('.score');
+let timer = null;
+let delay = null;
 score.innerText = correctAnswer + '/' + questions.length;
 
 let i = 0
 addQuestions(question, optionA, optionB, optionC, optionD);
 
-function next() {
+function skip() {
     if (i < (questions.length - 1)) {
         removeClass();
         i++
@@ -50,8 +52,8 @@ function next() {
 function pages() {
     document.addEventListener('click', function (e) {
         const el = e.target;
-        if (el.classList.contains('next')) {
-            next();
+        if (el.classList.contains('skip')) {
+            skip();
         }
 
         if (el.classList.contains('option')) {
@@ -136,8 +138,10 @@ function createSeconds(second) {
 }
 
 function startTimer() {
-    let second = 20;
-    const timer = setInterval(function () {
+    clearInterval(timer);
+    let second = 15;
+    p.innerHTML = second;
+    timer = setInterval(function () {
         if (!clickedOption) {
             second--;
         } else {
@@ -147,15 +151,16 @@ function startTimer() {
         if (second <= 0) {
             console.log('Anything');
             clearInterval(timer);
+            skip();
         }
     }, 1000);
 }
 function delayTimer() {
     let second = 0;
-    const timer = setInterval(function () {
+    delay = setInterval(function () {
         second++;
         if (second === 1) {
-            next();
+            skip();
         }
     }, 1000);
 }
